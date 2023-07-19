@@ -1,0 +1,30 @@
+    .navbar {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    background-color: #333;
+    color: #fff;
+    height: 60px;
+    padding: 0 20px;
+  }
+  
+
+  .navbar-logo img {
+    height: 40px;
+    width: auto;
+  }
+  
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+  }
+  
+  .navbar-menu li {
+    margin-left: 15px;
+  }
+  
+  .navbar-menu li:first-child {
+    margin-left: 0;
+  }
+  
