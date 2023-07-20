@@ -7,11 +7,11 @@ exports.up = function (knex) {
     table.increments("id");
     table.string("username", 128).notNullable().unique();
     table.string("password", 128).notNullable();
-    table.string("email", 128).notNullable().unique();
-    table.string("Adi", 128).notNullable();
-    table.string("Soyadi", 128).notNullable();
-    table.string("Cinsiyet", 128).notNullable();
-    table.string("DogumTarihi", 128).notNullable();
+    table.string("email", 128).notNullable().unique(); 
+    table.string("firstName", 128).notNullable();
+    table.string("lastName ", 128).notNullable();
+    table.string("gender", 128).notNullable();
+    table.string("birthday", 128).notNullable();
   });
 };
 

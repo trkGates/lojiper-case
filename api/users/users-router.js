@@ -2,20 +2,60 @@ const express = require("express");
 const app = express();
 
 const usersModel = require("./users-model");
+const { error } = require("console");
 
 app.post("/user", (req, res, next) => {
-    const { username, password } = req.body;
-    usersModel
-        .getUserNameAndPassword(username, password)
-        .then((user) => {
-            if (user) {
-                
-                res.status(200).json({ message: `Merhaba, ${user.username}!` });
-            } else {
-                res.status(401).json({ message: "Kullanıcı adı veya şifre hatalı." });
-            }
-        })
-        .catch(next);
+  const { username, password } = req.body;
+  usersModel
+    .getUserNameAndPassword(username, password)
+    .then((user) => {
+      if (user) {
+        res.status(200).json({ message: `Merhaba, ${user.username}!` });
+      } else {
+        res.status(401).json({ message: "Kullanıcı adı veya şifre hatalı." });
+      }
+    })
+    .catch(next);
+});
+
+app.post("/userBul", async (req, res, next) => {
+  try {
+    const { username } = req.body;
+    await usersModel.getUserBul(username).then((user) => {
+      if (user) {
+        res.status(200).json({ message: `Merhaba, ${user.username}!` });
+      } else {
+        res.status(401).json({ message: "Kullanıcı adı hatalı." });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/register", async (req, res, next) => {
+  try {
+    const { username, email } = req.body;
+    await usersModel.getUserBul(username).then((user) => {
+      if (user) {
+        res
+          .status(401)
+          .json({ message: "Kullanıcı adı daha önce kullanılmış." });
+      } else {
+        usersModel.getMailBul(email).then((user) => {
+          if (user) {
+            res.status(401).json({ message: "Email daha önce kullanılmış." });
+          } else {
+            usersModel.addUser(req.body).then((user) => {
+              res.status(200).json({ message: "Kullanıcı başarıyla eklendi." });
+            });
+          }
+        });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = app;

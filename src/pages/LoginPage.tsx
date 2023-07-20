@@ -53,7 +53,7 @@ const LoginPage: React.FC = () => {
     event.preventDefault();
 
     axios
-      .post("/login/user", formData)
+      .post("login/user", formData)
       .then((response) => {
         if (response.status === 200) {
           console.log("Login success:", response.data.message);
