@@ -1,21 +1,20 @@
 const express = require("express");
 const app = express();
-
 const usersModel = require("./users-model");
-const { error } = require("console");
+require("dotenv").config();
 
-app.post("/user", (req, res, next) => {
-  const { username, password } = req.body;
-  usersModel
-    .getUserNameAndPassword(username, password)
-    .then((user) => {
-      if (user) {
-        res.status(200).json({ message: `Merhaba, ${user.username}!` });
-      } else {
-        res.status(401).json({ message: "Kullanıcı adı veya şifre hatalı." });
-      }
-    })
-    .catch(next);
+app.post("/user", async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const user = await usersModel.getUserNameAndPassword(username, password);
+    if (user) {
+      await res.status(200).json({ message: "Giriş başarılı" });
+    } else {
+      res.status(401).json({ message: "Kullanıcı adı veya şifre hatalı." });
+    }
+  } catch (error) {
+      next(error);
+  }
 });
 
 app.post("/userBul", async (req, res, next) => {

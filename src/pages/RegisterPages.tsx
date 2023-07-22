@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface RegisterFormState {
   username: string;
@@ -14,7 +15,30 @@ interface RegisterFormState {
 
 const RegisterPages = () => {
   const navigate = useNavigate();
+  const [errorDurumu, setErrorDurumu] = useState(false);
+  const notifyFail = () =>
+    toast.warn("Kayıt Başarısız!!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
+  const notifySuccess = () =>
+    toast.success("Kayıt başarılı!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
   const [formData, setFormData] = useState<RegisterFormState>({
     username: "",
@@ -26,30 +50,30 @@ const RegisterPages = () => {
     gender: "",
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
+
     axios
       .post("login/register", formData)
       .then((response) => {
         if (response.status === 200) {
           console.log("Kayıt Başarılı:", response.data.message);
-          // 1.5 saniye beklet ve sonra yönlendir
-          setTimeout(() => {
-            navigate("/");
-          }, 1500);
+          navigate("/login");
+          notifySuccess();
         } else if (response.status === 401) {
+          notifyFail();
           console.log("Kayıt Başarısız:", response.data.message);
         }
       })
       .catch((error) => {
         if (error.response) {
           console.log("Kayıt Başarısız:", error.response.data.message);
+          setErrorDurumu(error.response.data.message);
         } else if (error.request) {
           console.log("Sunucuya ulaşılamıyor.");
         } else {
@@ -109,22 +133,25 @@ const RegisterPages = () => {
         </div>
         <div>
           <label>Cinsiyet:</label>
-          <input
-            type="text"
+          <select
             name="gender"
             value={formData.gender}
             onChange={handleInputChange}
-          />
+          >
+            <option value="Erkek">Erkek</option>
+            <option value="Kadın">Kadın</option>
+          </select>
         </div>
         <div>
           <label>Doğum Tarihi:</label>
           <input
-            type="text"
+            type="date"
             name="birthday"
             value={formData.birthday}
             onChange={handleInputChange}
           />
         </div>
+        <p>{errorDurumu}</p>
         <button type="submit">Kayıt Ol</button>
       </form>
     </div>

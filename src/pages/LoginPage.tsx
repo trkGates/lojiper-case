@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
+import { LoginBilgileriContext } from "../context/LoginBilgileri";
+
 import "react-toastify/dist/ReactToastify.css";
 
 import "./CSS/LoginPage.css";
-import { set } from "../../api/users/users-router";
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
 
 interface LoginFormState {
   username: string;
@@ -13,6 +16,8 @@ interface LoginFormState {
 }
 
 const LoginPage: React.FC = () => {
+  const { loginBilgileri, setLoginBilgileri } = useContext(LoginBilgileriContext);
+  const [hataliGiris, setHataliGiris] = useState(""); // [hataliGiris, setHataliGiris
   const navigate = useNavigate();
 
   const notifyFail = () =>
@@ -56,13 +61,16 @@ const LoginPage: React.FC = () => {
       .post("login/user", formData)
       .then((response) => {
         if (response.status === 200) {
-          console.log("Login success:", response.data.message);
-          // 1 saniye beklet sonra yönlendir
-          notifySuccess();
+          console.log("Login success:", response.data.message, response.data.token);
 
-          setTimeout(() => {
-            navigate("/");
-          }, 1500);
+          // Güncelleme işlemini burada yapıyoruz.
+          setLoginBilgileri({
+            username: formData.username,
+            password: formData.password
+          });
+          console.log("Login bilgileri güncellendi:", loginBilgileri);
+          navigate("/");
+          notifySuccess();
         } else {
           console.log("Login failed!");
         }
@@ -70,6 +78,7 @@ const LoginPage: React.FC = () => {
       .catch((error) => {
         if (error.response && error.response.status === 401) {
           console.log("Kullanıcı adı veya şifre hatalı!");
+           setHataliGiris("Kullanıcı adı veya şifre hatalı!");
           notifyFail();
         } else {
           console.error("Error:", error.message);
@@ -83,7 +92,8 @@ const LoginPage: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username:</label>
-          <input
+          <InputText
+          placeholder="Username" className="w-full mb-3"
             type="text"
             name="username"
             value={formData.username}
@@ -92,18 +102,19 @@ const LoginPage: React.FC = () => {
         </div>
         <div>
           <label>Password:</label>
-          <input
+          <InputText
+           placeholder="Password" className="w-full mb-3"
             type="password"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit">Login</button>
+        <p>{hataliGiris}</p>
+        <Button icon="pi pi-user" className="w-full"  type="submit">Login</Button>
       </form>
       {formData.username && <p>Username: {formData.username}</p>}
       {formData.password && <p>Password: {formData.password}</p>}
-      <ToastContainer />
     </div>
   );
 };
