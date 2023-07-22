@@ -6,16 +6,20 @@ import {
 } from "../context/AramaBilgileri";
 
 import "./CSS/sefer.css";
+import { Button } from "primereact/button";
 interface SeferData {
   id: number;
+  seferSirketResim: string;
   seferSirketi: string;
   seferKalkisYeri: string;
   seferVarisYeri: string;
   seferTarihi: string;
   seferSuresi: string;
+  seferSaati: string;
   seferKapasitesi: string;
   seferUcreti: string;
   seferAciklama: string;
+  seferKoltukDüzeni: string;
 }
 
 const Sefer: React.FC = () => {
@@ -53,14 +57,39 @@ const Sefer: React.FC = () => {
           // Otherwise, display the seferData if available
           seferData.map((sefer) => (
             <div id="sefer" key={sefer.id}>
-              <p className="detay">Sefer Adı: {sefer.seferSirketi}</p>
-              <p className="detay">Kalkış Yeri: {sefer.seferKalkisYeri}</p>
-              <p className="detay">Varış Yeri: {sefer.seferVarisYeri}</p>
-              <p className="detay">Tarih: {sefer.seferTarihi}</p>
-              <p className="detay">Süre: {sefer.seferSuresi}</p>
-              <p className="detay">Kapasite: {sefer.seferKapasitesi}</p>
-              <p className="detay">Ücret: {sefer.seferUcreti}</p>
-              <p className="detay">Açıklama: {sefer.seferAciklama}</p>
+              <div id="sefer-container">
+                <div className="sefer-ortak" id="seferResim">
+                  <img
+                    id="resimBoyut"
+                    src={sefer.seferSirketResim}
+                    alt="Pamukkale"
+                  />
+                </div>
+
+                <div className="sefer-ortak" id="seferSaati">
+                  <p>
+                    <i className="pi pi-clock"></i> {sefer.seferSaati}
+                  </p>
+                  <p className="detay">{sefer.seferSuresi}</p>
+                </div>
+
+                <div className="sefer-ortak" id="seferDuzeni">
+                  <p id="koltuk-duzeni"> {sefer.seferKoltukDüzeni}</p>
+                  <p className="detay">
+                    {" "}
+                    {sefer.seferKalkisYeri}{" "}
+                    <i className="pi pi-angle-double-right"></i>
+                    {sefer.seferVarisYeri}
+                  </p>
+                </div>
+
+                <div className="sefer-ortak" id="seferUcreti">
+                  <p className="detay">{sefer.seferUcreti}</p>
+                </div>
+                <div>
+                  <Button>KOLTUK SEÇ</Button>
+                </div>
+              </div>
             </div>
           ))
         )}

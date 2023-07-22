@@ -4,10 +4,27 @@
   border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-  display: flex;
 }
 
-.detay{
-    justify-content: space-between;
+#sefer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  font-size: large;
+}
 
+.sefer-ortak {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sefer-ortak p {
+  padding: 15px 0px;
+}
+
+#resimBoyut {
+  width: 197px;
+  height: 75px;
 }

@@ -16,6 +16,7 @@ exports.up = function (knex) {
     })
     .createTable("seferler", (table) => {
       table.increments("id");
+      table.string("seferSirketResim", 300).notNullable();
       table.string("seferSirketi", 128).notNullable();
       table.string("seferTarihi", 128).notNullable();
       table.string("seferSuresi", 128).notNullable();

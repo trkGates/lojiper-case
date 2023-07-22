@@ -1,0 +1,42 @@
+#koltukSec-MainContainer{
+    display: flex;   
+}
+
+#koltukSec-Container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 520px; /* İstenilen genişliği belirleyebilirsiniz */
+  height: 191px; /* ellemeyiniz */
+  border-top: 3px solid green ;
+  border-bottom: 3px solid green;
+  border-right: 3px solid green;
+  border-end-end-radius: 10px;
+border-top-right-radius: 10px ;
+padding: 2px 0px;
+}
+
+#koltukSec-KoltukContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Koltuk arka plan rengi */
+  border: 2px solid #9e4040; /* Koltuk kenarlık rengi */
+  border-radius: 5px; /* Koltuk kenarlık yuvarlaklığı */
+  width: 35px; /* Koltuk genişliği */
+  height: 35px; /* Koltuk yüksekliği */
+}
+
+
+#koltukSec-Koltuk {
+  font-size: 15px;
+  font-weight: bold;
+}
+#onTaraf{
+   width: 60px;
+   height: 191px;
+  border-top: 3px solid green ;
+  border-bottom: 3px solid green;
+  border-left: 3px solid green;
+
+}

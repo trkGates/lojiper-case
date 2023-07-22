@@ -31,6 +31,8 @@ exports.seed = async function (knex) {
   await knex("seferler").insert([
     {
       id: 1,
+      seferSirketResim:
+        "https://s3.eu-central-1.amazonaws.com/static.obilet.com/images/partner/3195-sm.png",
       seferSirketi: "KamilKoç",
       seferTarihi: "26/7/2023",
       seferSuresi: "5 Saat ",
@@ -44,6 +46,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 2,
+      seferSirketResim:
+        "https://s3.eu-central-1.amazonaws.com/static.obilet.com/images/partner/3421-sm.png",
       seferSirketi: "Pamukkale",
       seferTarihi: "26/7/2023",
       seferSuresi: "6 Saat",
