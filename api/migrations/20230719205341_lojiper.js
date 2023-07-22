@@ -16,11 +16,13 @@ exports.up = function (knex) {
     })
     .createTable("seferler", (table) => {
       table.increments("id");
-      table.string("seferAdi", 128).notNullable();
+      table.string("seferSirketi", 128).notNullable();
       table.string("seferTarihi", 128).notNullable();
       table.string("seferSuresi", 128).notNullable();
+      table.string("seferSaati", 128).notNullable();
       table.string("seferUcreti", 128).notNullable();
       table.string("seferKapasitesi", 128).notNullable();
+      table.string("seferKoltukDüzeni", 128).notNullable();
       table.string("seferKalkisYeri", 128).notNullable();
       table.string("seferVarisYeri", 128).notNullable();
       table.string("seferAciklama", 128).notNullable();

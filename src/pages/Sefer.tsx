@@ -4,11 +4,11 @@ import {
   AramaMenüsü,
   AramaMenüsüContextProps,
 } from "../context/AramaBilgileri";
-import { set } from "../../api/users/users-router";
 
+import "./CSS/sefer.css";
 interface SeferData {
   id: number;
-  seferAdi: string;
+  seferSirketi: string;
   seferKalkisYeri: string;
   seferVarisYeri: string;
   seferTarihi: string;
@@ -52,15 +52,15 @@ const Sefer: React.FC = () => {
         ) : (
           // Otherwise, display the seferData if available
           seferData.map((sefer) => (
-            <div key={sefer.id}>
-              <p>Sefer Adı: {sefer.seferAdi}</p>
-              <p>Kalkış Yeri: {sefer.seferKalkisYeri}</p>
-              <p>Varış Yeri: {sefer.seferVarisYeri}</p>
-              <p>Tarih: {sefer.seferTarihi}</p>
-              <p>Süre: {sefer.seferSuresi}</p>
-              <p>Kapasite: {sefer.seferKapasitesi}</p>
-              <p>Ücret: {sefer.seferUcreti}</p>
-              <p>Açıklama: {sefer.seferAciklama}</p>
+            <div id="sefer" key={sefer.id}>
+              <p className="detay">Sefer Adı: {sefer.seferSirketi}</p>
+              <p className="detay">Kalkış Yeri: {sefer.seferKalkisYeri}</p>
+              <p className="detay">Varış Yeri: {sefer.seferVarisYeri}</p>
+              <p className="detay">Tarih: {sefer.seferTarihi}</p>
+              <p className="detay">Süre: {sefer.seferSuresi}</p>
+              <p className="detay">Kapasite: {sefer.seferKapasitesi}</p>
+              <p className="detay">Ücret: {sefer.seferUcreti}</p>
+              <p className="detay">Açıklama: {sefer.seferAciklama}</p>
             </div>
           ))
         )}
