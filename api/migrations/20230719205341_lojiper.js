@@ -33,7 +33,7 @@ exports.up = function (knex) {
       table.integer("seferId").unsigned().references("id").inTable("seferler");
       table.string("koltukNo", 20).notNullable();
       table.string("UserId", 20).notNullable();
-      table.string("koltukFiyati", 20);
+      table.string("cinsiyet", 20).notNullable();
     });
 };
 /**

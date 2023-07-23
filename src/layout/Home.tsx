@@ -3,7 +3,6 @@ import NavBar from "../pages/NavBar";
 import AramaMenusu from "../pages/AramaMenusu";
 import "./CSS/Home.css";
 import Sefer from "../pages/Sefer";
-import KoltukSec from "../pages/KoltukSec";
 
 const Home: React.FC = () => {
   return (
@@ -11,7 +10,6 @@ const Home: React.FC = () => {
       <NavBar />
       <AramaMenusu />
       <Sefer />
-      <KoltukSec />
     </>
   );
 };

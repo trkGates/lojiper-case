@@ -7,7 +7,8 @@ import {
 
 import "./CSS/sefer.css";
 import { Button } from "primereact/button";
-interface SeferData {
+import KoltukSec from "./KoltukSec";
+export interface SeferData {
   id: number;
   seferSirketResim: string;
   seferSirketi: string;
@@ -27,6 +28,17 @@ const Sefer: React.FC = () => {
     useContext<AramaMenüsüContextProps>(AramaMenüsü);
   const [seferData, setSeferData] = useState<SeferData[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [koltukSecVisibleMap, setKoltukSecVisibleMap] = useState<{
+    [id: number]: boolean;
+  }>({});
+
+  // Function to toggle the visibility of KoltukSec for a specific id
+  const toggleKoltukSecVisible = (id: number) => {
+    setKoltukSecVisibleMap((prevMap) => ({
+      ...prevMap,
+      [id]: !prevMap[id] || false,
+    }));
+  };
 
   const seferBul = () => {
     axios
@@ -87,8 +99,14 @@ const Sefer: React.FC = () => {
                   <p className="detay">{sefer.seferUcreti}</p>
                 </div>
                 <div>
-                  <Button>KOLTUK SEÇ</Button>
+                  <Button onClick={() => toggleKoltukSecVisible(sefer.id)}>
+                    KOLTUK SEÇ
+                  </Button>
                 </div>
+              </div>
+
+              <div id="">
+                {koltukSecVisibleMap[sefer.id] && <KoltukSec sefer={sefer} />}
               </div>
             </div>
           ))
