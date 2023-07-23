@@ -8,7 +8,7 @@ const {
   userVarMi,
 } = require("./koltuklar-middleware");
 
-app.get("/koltukBul", seferVarMi, async (req, res, next) => {
+app.post("/koltukBul", seferVarMi, async (req, res, next) => {
   try {
     const { seferId } = req.body;
     if (!seferId) {
@@ -32,6 +32,7 @@ app.get("/koltukBul", seferVarMi, async (req, res, next) => {
     }
   }
 });
+
 
 app.post(
   "/koltukEkle",

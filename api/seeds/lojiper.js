@@ -78,23 +78,39 @@ exports.seed = async function (knex) {
 
   await knex("koltuklar").del();
   await knex("koltuklar").insert([
-    {
-      seferId: 1,
-      koltukNo: 1,
-      UserId: 1,
-      cinsiyet: "Erkek",
-    },
-    {
-      seferId: 1,
-      koltukNo: 2,
-      UserId: 1,
-      cinsiyet: "Kadın",
-    },
-    {
-      seferId: 1,
-      koltukNo: 3,
-      UserId: 2,
-      cinsiyet: "Erkek",
-    },
+    { seferId: 1, koltukNo: 1, UserId: 1, cinsiyet: "Erkek" },
+    { seferId: 1, koltukNo: 2, UserId: 2, cinsiyet: "Erkek" },
+    { seferId: 1, koltukNo: 3, UserId: 3, cinsiyet: "Kadın" },
+    { seferId: 1, koltukNo: 4, UserId: 1, cinsiyet: "Kadın" },
+    { seferId: 1, koltukNo: 5, UserId: 2, cinsiyet: "Erkek" },
+    { seferId: 1, koltukNo: 6, UserId: 3, cinsiyet: "Erkek" },
+    { seferId: 1, koltukNo: 7, UserId: 1, cinsiyet: "Kadın" },
+    { seferId: 1, koltukNo: 8, UserId: 2, cinsiyet: "Kadın" },
+    { seferId: 1, koltukNo: 9, UserId: 3, cinsiyet: "Erkek" },
+    { seferId: 1, koltukNo: 10, UserId: 1, cinsiyet: "Erkek" },
+
+    // Sefer 2 için koltuklar
+    { seferId: 2, koltukNo: 1, UserId: 1, cinsiyet: "Erkek" },
+    { seferId: 2, koltukNo: 2, UserId: 2, cinsiyet: "Erkek" },
+    { seferId: 2, koltukNo: 3, UserId: 3, cinsiyet: "Kadın" },
+    { seferId: 2, koltukNo: 4, UserId: 1, cinsiyet: "Kadın" },
+    { seferId: 2, koltukNo: 5, UserId: 2, cinsiyet: "Erkek" },
+    { seferId: 2, koltukNo: 6, UserId: 3, cinsiyet: "Erkek" },
+    { seferId: 2, koltukNo: 7, UserId: 1, cinsiyet: "Erkek" },
+    { seferId: 2, koltukNo: 8, UserId: 2, cinsiyet: "Erkek" },
+    { seferId: 2, koltukNo: 9, UserId: 3, cinsiyet: "Kadın" },
+    { seferId: 2, koltukNo: 10, UserId: 1, cinsiyet: "Kadın" },
+
+    // Sefer 3 için koltuklar
+    { seferId: 3, koltukNo: 1, UserId: 1, cinsiyet: "Kadın" },
+    { seferId: 3, koltukNo: 2, UserId: 2, cinsiyet: "Kadın" },
+    { seferId: 3, koltukNo: 3, UserId: 3, cinsiyet: "Kadın" },
+    { seferId: 3, koltukNo: 4, UserId: 2, cinsiyet: "Kadın" },
+    { seferId: 3, koltukNo: 5, UserId: 1, cinsiyet: "Erkek" },
+    { seferId: 3, koltukNo: 6, UserId: 3, cinsiyet: "Erkek" },
+    { seferId: 3, koltukNo: 7, UserId: 1, cinsiyet: "Erkek" },
+    { seferId: 3, koltukNo: 8, UserId: 2, cinsiyet: "Erkek" },
+    { seferId: 3, koltukNo: 9, UserId: 1, cinsiyet: "Erkek" },
+    { seferId: 3, koltukNo: 10, UserId: 3, cinsiyet: "Erkek" },
   ]);
 };
