@@ -3,5 +3,3 @@
 
 
  react ve typescript kullanıldı
-
-burası düzenlenecek vaktim kalmadı...
