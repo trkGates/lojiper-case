@@ -8,7 +8,8 @@ app.post("/user", async (req, res, next) => {
     const { username, password } = req.body;
     const user = await usersModel.getUserNameAndPassword(username, password);
     if (user) {
-      await res.status(200).json({ message: "Giriş başarılı" });
+
+      await res.status(200).json(user);
     } else {
       res.status(401).json({ message: "Kullanıcı adı veya şifre hatalı." });
     }

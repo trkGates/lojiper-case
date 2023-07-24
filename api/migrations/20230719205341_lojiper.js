@@ -30,9 +30,10 @@ exports.up = function (knex) {
     })
     .createTable("koltuklar", (table) => {
       table.increments("id");
-      table.integer("seferId").unsigned().references("id").inTable("seferler");
+      table.string("seferId", 20).notNullable();
       table.string("koltukNo", 20).notNullable();
       table.string("UserId", 20).notNullable();
+      table.string("koltukFiyati", 20).notNullable();
       table.string("cinsiyet", 20).notNullable();
     });
 };

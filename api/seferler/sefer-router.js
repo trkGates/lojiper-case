@@ -33,4 +33,31 @@ app.post("/seferBul", async (req, res, next) => {
   }
 });
 
+
+app.post("/seferVarMi", async (req, res, next) => {
+  try {
+    const { seferId } = req.body;
+    if (!seferId) {
+      res.status(401).json({ message: "Sefer id boş bırakılamaz." });
+    } else if (seferId) {
+      await seferModel.getSeferVarMi(seferId).then((sefer) => {
+        if (sefer < 1) {
+          res.status(401).json({ message: "Sefer bulunamadı." });
+        } else if (sefer) {
+          res.status(200).json(sefer);
+        }
+      });
+    } else {
+      res.status(401).json({ message: "Sefer bulunamadı." });
+    }
+  } catch (error) {
+    if (error.code === "ER_BAD_FIELD_ERROR") {
+      res.status(401).json({ message: "Sefer bulunamadı." });
+    } else {
+      res.json({ message: "Sefer bulunamadı." });
+    }
+  }
+});
+
+
 module.exports = app;

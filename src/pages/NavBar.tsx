@@ -6,7 +6,9 @@ import "./CSS/Navbar.css";
 
 const NavBar = () => {
   const [yazi, setYazi] = useState("");
-  const { loginBilgileri, setLoginBilgileri } = useContext(LoginBilgileriContext);
+  const { loginBilgileri, setLoginBilgileri } = useContext(
+    LoginBilgileriContext
+  );
 
   useEffect(() => {
     if (loginBilgileri.username !== "") {
@@ -15,31 +17,51 @@ const NavBar = () => {
   }, [loginBilgileri]);
 
   const handleLogout = () => {
-    setLoginBilgileri({ username: "", password: "" });
+    setLoginBilgileri({
+      username: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      id: "",
+    });
   };
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
-        <Link to="/">
-          <img src="https://picsum.photos/50/50" alt="Logo" />
-        </Link>
-      </div>
+      <div className="navbar-logo ">{/* istege baglı eklenebilir  */}</div>
       <ul className="navbar-menu">
         {loginBilgileri.username !== "" ? (
           <>
-            <li>{yazi}</li>
+            <li id="yaziNavbar">
+              <p>{yazi}</p>
+            </li>
+            <p className="ButunlarNav">
+              <Link to="/">Ana Sayfa</Link>
+            </p>
+            <li className="ButunlarNav">
+              <Link id="deneme1234" to="/biletlerim">
+                Biletlerim
+              </Link>
+            </li>
             <li>
-              <button onClick={handleLogout}>Çıkış Yap</button>
+              <Link to="/" className="ButunlarNav" onClick={handleLogout}>
+                Çıkış Yap
+              </Link>
             </li>
           </>
         ) : (
           <>
-            <li>
+            <p className="ButunlarNav">
+              <Link to="/">Ana Sayfa</Link>
+            </p>
+            <li className="ButunlarNav">
               <Link to="/login">Giriş Yap</Link>
             </li>
-            <li>
-              <Link to="/register">Kayıt Ol</Link>
+            <li className="ButunlarNav">
+              <p>
+                <Link to="/register">Kayıt Ol</Link>
+              </p>
             </li>
           </>
         )}

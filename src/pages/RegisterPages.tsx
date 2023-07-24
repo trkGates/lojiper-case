@@ -50,7 +50,10 @@ const RegisterPages = () => {
     gender: "",
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLSelectElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement> &
+      React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -72,7 +75,7 @@ const RegisterPages = () => {
       })
       .catch((error) => {
         if (error.response) {
-          console.log("Kayıt Başarısız:", error.response.data.message);
+          console.log("Kayıt Başarısızzzz:", error.response.data.message);
           setErrorDurumu(error.response.data.message);
         } else if (error.request) {
           console.log("Sunucuya ulaşılamıyor.");

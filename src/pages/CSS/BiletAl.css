@@ -1,0 +1,132 @@
+#B-MainContainer {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+#B-Container_1 p {
+  font-size: 20px;
+  font-weight: 400;
+  padding-bottom: 5px;
+}
+#B-MainContainer h2 {
+  font-size: 20px;
+  font-weight: 500;
+  padding-bottom: 5px;
+}
+#B-Container_1 {
+  display: flex;
+  width: 350px;
+  flex-direction: column;
+  background-color: aliceblue;
+  border-radius: 15px;
+  padding: 30px 0px 30px 30px;
+}
+
+#B-Div_1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(63, 63, 63, 0.603);
+}
+#B-Div_1 img {
+  width: 150px;
+  height: 60px;
+}
+
+#B-Div_2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.B-Div_2_1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  padding-top: 15px;
+}
+.B-Div_2_2 {
+  width: 150px;
+  padding-right: 30px;
+}
+#B-koltuklar {
+  width: 100px;
+}
+
+#B-Container_2 {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  background-color: aliceblue;
+  border-radius: 15px;
+  padding: 30px 0px 30px 30px;
+  margin-left: 30px;
+}
+
+.B-Yocu {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+  padding-top: 15px;
+  padding-right: 15px;
+  font-size: 20px;
+  font-weight: 400;
+  padding-bottom: 5px;
+}
+
+.B-Yocu p:first-child {
+  padding-right: 5px;
+  font-weight: 600;
+}
+
+#B-Container_3 {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  background-color: aliceblue;
+  border-radius: 15px;
+  padding: 30px 0px 30px 30px;
+  margin-left: 30px;
+}
+
+#B-Container_3 input {
+  width: 80%;
+  height: 30px;
+  border: 1px transparent #ccc;
+  border-radius: 5px;
+  background-color: rgba(250, 235, 215, 0.575);
+  font-size: 25px;
+}
+.B-Container_3_1 {
+  padding-bottom: 20px;
+}
+#B-Container_3 p {
+  font-size: 15px;
+}
+#B-SKT {
+  font-size: 15px !important;
+}
+#B-ccv-aa {
+  display: flex;
+  justify-content: space-between;
+  width: 220px;
+}
+
+#B-ccv-aa input {
+  width: 70px;
+}
+#OdemeButton {
+  width: 80%;
+  height: 40px;
+  border: 1px transparent #ccc;
+  border-radius: 5px;
+  background-color: rgba(43, 158, 19, 0.575);
+  font-size: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+#OdemeButton:hover {
+  background-color: rgba(80, 202, 49, 0.8);
+  box-shadow: 0 4px 8px rgba(10, 10, 10, 0.3);
+}

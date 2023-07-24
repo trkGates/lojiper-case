@@ -10,6 +10,7 @@ import {
   AramaMenüsü,
   AramaMenüsüContextProps,
 } from "../context/AramaBilgileri";
+import "./CSS/AramaMenusu.css";
 
 const monthNames = [
   "Jan",
@@ -73,29 +74,37 @@ const AramaMenusu: React.FC = () => {
     }
   };
   return (
-    <div>
-      <Select
-        options={turkishCities}
-        onChange={(e) => handleInputChange(e, "kalkisNoktasi")}
-        value={secilen.kalkisNoktasi}
-        placeholder="Gidiş Noktası"
-      />
-      <Select
-        placeholder="Varış Noktası"
-        options={turkishCities}
-        onChange={(e) => handleInputChange(e, "varisNoktasi")}
-        value={secilen.varisNoktasi}
-      />
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer components={["DatePicker"]}>
-          <DatePicker
-            label="Yolculuk Tarihi"
-            defaultValue={dayjs()}
-            onChange={handleDateChange}
-            disablePast
-          />
-        </DemoContainer>
-      </LocalizationProvider>
+    <div id="A-MainContainer">
+      <div className="A-container">
+        <p>Kalkış Noktası</p>
+        <Select
+          options={turkishCities}
+          onChange={(e) => handleInputChange(e, "kalkisNoktasi")}
+          value={secilen.kalkisNoktasi}
+          placeholder="Gidiş Noktası"
+        />
+      </div>
+      <div className="A-container">
+        <p>Varış Noktası</p>
+        <Select
+          placeholder="Varış Noktası"
+          options={turkishCities}
+          onChange={(e) => handleInputChange(e, "varisNoktasi")}
+          value={secilen.varisNoktasi}
+        />
+      </div>
+      <div className="A-container">
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={["DatePicker"]}>
+            <DatePicker
+              label="Yolculuk Tarihi"
+              defaultValue={dayjs()}
+              onChange={handleDateChange}
+              disablePast
+            />
+          </DemoContainer>
+        </LocalizationProvider>
+      </div>
     </div>
   );
 };

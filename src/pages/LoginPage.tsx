@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { LoginBilgileriContext } from "../context/LoginBilgileri";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -13,10 +13,16 @@ import { InputText } from "primereact/inputtext";
 interface LoginFormState {
   username: string;
   password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  id: string;
 }
 
 const LoginPage: React.FC = () => {
-  const { loginBilgileri, setLoginBilgileri } = useContext(LoginBilgileriContext);
+  const { loginBilgileri, setLoginBilgileri } = useContext(
+    LoginBilgileriContext
+  );
   const [hataliGiris, setHataliGiris] = useState(""); // [hataliGiris, setHataliGiris
   const navigate = useNavigate();
 
@@ -46,7 +52,11 @@ const LoginPage: React.FC = () => {
 
   const [formData, setFormData] = useState<LoginFormState>({
     username: "",
+    firstName: "",
+    lastName: "",
+    email: "",
     password: "",
+    id: "",
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,12 +71,16 @@ const LoginPage: React.FC = () => {
       .post("login/user", formData)
       .then((response) => {
         if (response.status === 200) {
-          console.log("Login success:", response.data.message, response.data.token);
+          console.log("Login success:", response.data.firstName);
 
           // Güncelleme işlemini burada yapıyoruz.
           setLoginBilgileri({
-            username: formData.username,
-            password: formData.password
+            username: response.data.username,
+            firstName: response.data.firstName,
+            lastName: response.data.lastName,
+            email: response.data.email,
+            password: response.data.password,
+            id: response.data.id,
           });
           console.log("Login bilgileri güncellendi:", loginBilgileri);
           navigate("/");
@@ -78,7 +92,7 @@ const LoginPage: React.FC = () => {
       .catch((error) => {
         if (error.response && error.response.status === 401) {
           console.log("Kullanıcı adı veya şifre hatalı!");
-           setHataliGiris("Kullanıcı adı veya şifre hatalı!");
+          setHataliGiris("Kullanıcı adı veya şifre hatalı!");
           notifyFail();
         } else {
           console.error("Error:", error.message);
@@ -93,7 +107,8 @@ const LoginPage: React.FC = () => {
         <div>
           <label>Username:</label>
           <InputText
-          placeholder="Username" className="w-full mb-3"
+            placeholder="Username"
+            className="w-full mb-3"
             type="text"
             name="username"
             value={formData.username}
@@ -103,7 +118,8 @@ const LoginPage: React.FC = () => {
         <div>
           <label>Password:</label>
           <InputText
-           placeholder="Password" className="w-full mb-3"
+            placeholder="Password"
+            className="w-full mb-3"
             type="password"
             name="password"
             value={formData.password}
@@ -111,7 +127,9 @@ const LoginPage: React.FC = () => {
           />
         </div>
         <p>{hataliGiris}</p>
-        <Button icon="pi pi-user" className="w-full"  type="submit">Login</Button>
+        <Button icon="pi pi-user" className="w-full" type="submit">
+          Login
+        </Button>
       </form>
       {formData.username && <p>Username: {formData.username}</p>}
       {formData.password && <p>Password: {formData.password}</p>}

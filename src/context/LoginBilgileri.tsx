@@ -1,10 +1,12 @@
-
-
 import { createContext, useState } from "react";
 
 export interface LoginBilgileri {
   username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   password: string;
+  id: string;
 }
 
 export interface LoginBilgileriContextType {
@@ -16,18 +18,33 @@ interface LoginBilgileriProviderProps {
 }
 
 export const LoginBilgileriContext = createContext<LoginBilgileriContextType>({
-  loginBilgileri: { username: "", password: "" },
-  setLoginBilgileri: () => {}
+  loginBilgileri: {
+    username: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    id: "",
+  },
+  setLoginBilgileri: () => {},
 });
 
-export const LoginBilgileriProvider: React.FC<LoginBilgileriProviderProps> = ({ children }) => {
+export const LoginBilgileriProvider: React.FC<LoginBilgileriProviderProps> = ({
+  children,
+}) => {
   const [loginBilgileri, setLoginBilgileri] = useState<LoginBilgileri>({
     username: "",
-    password: ""
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    id: "",
   });
 
   return (
-    <LoginBilgileriContext.Provider value={{ loginBilgileri, setLoginBilgileri }}>
+    <LoginBilgileriContext.Provider
+      value={{ loginBilgileri, setLoginBilgileri }}
+    >
       {children}
     </LoginBilgileriContext.Provider>
   );

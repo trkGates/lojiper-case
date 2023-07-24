@@ -1,0 +1,43 @@
+#Kullanici-MainContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+#Kullanici-Map {
+  background-color: aliceblue;
+  border-radius: 25px;
+  width: 500px;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 0 10px 0 rgba(10, 10, 10, 0.7);
+}
+#Kullanici-Resim {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#Kullanici-Resim img {
+  width: 200px;
+  height: 80px;
+}
+
+.Kullanici-Bilgiler {
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: row;
+
+  flex-wrap: wrap;
+}
+
+.Kullanici-Bilgiler p {
+  background-color: rgba(165, 42, 42, 0.308);
+  padding: 5px;
+  margin: 5px;
+  border-radius: 20px;
+
+  display: flex;
+  padding: 15px;
+}
