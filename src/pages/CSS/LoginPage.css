@@ -1,0 +1,39 @@
+#Login-MainContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 90vh;
+}
+
+#Login-Container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 450px;
+    height: 60vh;
+    background-color: #ecebbb3b;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+#Login-Container div{
+    margin: 10px;
+}
+
+#Login-Form div{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+#Login-Button{
+    display: flex;
+    justify-content: center;
+}
+#LoginYazisi{
+    font-size: 50px;
+    font-weight: bold;
+    color: #000000;
+    text-shadow: 0px 0px 10px #000000;
+}

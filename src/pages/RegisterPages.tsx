@@ -1,7 +1,12 @@
 import axios from "axios";
+import { InputText } from "primereact/inputtext";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "./CSS/RegisterPages.css";
+import { Password } from "primereact/password";
+import { Button } from "primereact/button";
+import { Message } from "primereact/message";
 
 interface RegisterFormState {
   username: string;
@@ -16,29 +21,6 @@ interface RegisterFormState {
 const RegisterPages = () => {
   const navigate = useNavigate();
   const [errorDurumu, setErrorDurumu] = useState(false);
-  const notifyFail = () =>
-    toast.warn("Kayıt Başarısız!!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-
-  const notifySuccess = () =>
-    toast.success("Kayıt başarılı!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
 
   const [formData, setFormData] = useState<RegisterFormState>({
     username: "",
@@ -67,9 +49,8 @@ const RegisterPages = () => {
         if (response.status === 200) {
           console.log("Kayıt Başarılı:", response.data.message);
           navigate("/login");
-          notifySuccess();
+          toast.success(response.data.message);
         } else if (response.status === 401) {
-          notifyFail();
           console.log("Kayıt Başarısız:", response.data.message);
         }
       })
@@ -77,6 +58,7 @@ const RegisterPages = () => {
         if (error.response) {
           console.log("Kayıt Başarısızzzz:", error.response.data.message);
           setErrorDurumu(error.response.data.message);
+          toast.error(error.response.data.message);
         } else if (error.request) {
           console.log("Sunucuya ulaşılamıyor.");
         } else {
@@ -86,77 +68,118 @@ const RegisterPages = () => {
   };
 
   return (
-    <div>
-      <h1>Kayıt Ol</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Kullanıcı Adı:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-          />
+    <div id="Register-Main">
+      <div id="Register-Container">
+        <div id="Register-Container1">
+          <div>
+            <h1 id="KayitOl">Kayıt Ol</h1>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="p-inputgroup flex-1">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-user"></i>
+              </span>
+              <span className="p-float-label">
+                <InputText
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="username">Username</label>
+              </span>
+            </div>
+
+            <div className="p-inputgroup flex-1">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-question-circle"></i>
+              </span>
+              <span className="p-float-label">
+                <InputText
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="password">Password</label>
+              </span>
+            </div>
+
+            <div className="p-inputgroup flex-1">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-send"></i>
+              </span>
+              <span className="p-float-label">
+                <InputText
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="email">Email</label>
+              </span>
+            </div>
+            <div className="p-inputgroup flex-1">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-user"></i>
+              </span>
+              <span className="p-float-label">
+                <InputText
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="firstName">Ad</label>
+              </span>
+            </div>
+            <div className="p-inputgroup flex-1">
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-user"></i>
+              </span>
+              <span className="p-float-label">
+                <InputText
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="lastName">Soyad</label>
+              </span>
+            </div>
+
+            <div>
+              <label>Cinsiyet:</label>
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleInputChange}
+              >
+                <option value="Erkek">Erkek</option>
+                <option value="Kadın">Kadın</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Doğum Tarihi:</label>
+              <input
+                type="date"
+                name="birthday"
+                value={formData.birthday}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              {errorDurumu ? (
+                <Message id="Message" severity="warn" text={errorDurumu} />
+              ) : null}
+            </div>
+            <div id="BTN-KAYIT">
+              <Button type="submit" label="Kayıt Ol" severity="secondary" />
+            </div>
+          </form>
         </div>
-        <div>
-          <label>Şifre:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>E-posta:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Ad:</label>
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Soyad:</label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Cinsiyet:</label>
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleInputChange}
-          >
-            <option value="Erkek">Erkek</option>
-            <option value="Kadın">Kadın</option>
-          </select>
-        </div>
-        <div>
-          <label>Doğum Tarihi:</label>
-          <input
-            type="date"
-            name="birthday"
-            value={formData.birthday}
-            onChange={handleInputChange}
-          />
-        </div>
-        <p>{errorDurumu}</p>
-        <button type="submit">Kayıt Ol</button>
-      </form>
+      </div>
     </div>
   );
 };

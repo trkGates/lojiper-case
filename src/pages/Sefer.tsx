@@ -8,6 +8,8 @@ import {
 import "./CSS/sefer.css";
 import { Button } from "primereact/button";
 import KoltukSec from "./KoltukSec";
+import { ButtonBase } from "@mui/material";
+import { toast } from "react-toastify";
 export interface SeferData {
   id: number;
   seferSirketResim: string;
@@ -55,18 +57,15 @@ const Sefer: React.FC = () => {
         console.log(error.response.data.message);
         setSeferData([]);
         setError(error.response.data.message);
+        toast.error(error.response.data.message);
       });
   };
 
   return (
     <div>
-      <h1>Sefer</h1>
-      <button onClick={seferBul}>Seferi Bul</button>
+      <Button id="S-Button" onClick={seferBul}>Seferi Bul</Button>
       <div>
-        {error ? ( // If there's an error, display the error message
-          <p>{error}</p>
-        ) : (
-          // Otherwise, display the seferData if available
+        {
           seferData.map((sefer) => (
             <div id="sefer" key={sefer.id}>
               <div id="sefer-container">
@@ -96,7 +95,7 @@ const Sefer: React.FC = () => {
                 </div>
 
                 <div className="sefer-ortak" id="seferUcreti">
-                  <p className="detay">{sefer.seferUcreti}</p>
+                  <p className="detay">{sefer.seferUcreti} ₺</p>
                 </div>
                 <div>
                   <Button onClick={() => toggleKoltukSecVisible(sefer.id)}>
@@ -110,7 +109,7 @@ const Sefer: React.FC = () => {
               </div>
             </div>
           ))
-        )}
+          }
       </div>
     </div>
   );

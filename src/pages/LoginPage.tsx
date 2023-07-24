@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./CSS/LoginPage.css";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { Message } from "primereact/message";
 
 interface LoginFormState {
   username: string;
@@ -23,7 +24,7 @@ const LoginPage: React.FC = () => {
   const { loginBilgileri, setLoginBilgileri } = useContext(
     LoginBilgileriContext
   );
-  const [hataliGiris, setHataliGiris] = useState(""); // [hataliGiris, setHataliGiris
+  const [hataliGiris, setHataliGiris] = useState("");
   const navigate = useNavigate();
 
   const notifyFail = () =>
@@ -59,16 +60,31 @@ const LoginPage: React.FC = () => {
     id: "",
   });
 
+  useEffect(() => {
+    // Retrieve username and password from localStorage if available
+    const savedUsername = localStorage.getItem("username");
+    const savedPassword = localStorage.getItem("password");
+
+    // Update the formData state if the values are available in localStorage
+    if (savedUsername && savedPassword) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        username: savedUsername,
+        password: savedPassword,
+      }));
+      // Perform automatic login using the saved credentials
+      handleLogin(savedUsername, savedPassword);
+    }
+  }, []);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const handleLogin = (username: string, password: string) => {
     axios
-      .post("login/user", formData)
+      .post("login/user", { username, password })
       .then((response) => {
         if (response.status === 200) {
           console.log("Login success:", response.data.firstName);
@@ -83,6 +99,11 @@ const LoginPage: React.FC = () => {
             id: response.data.id,
           });
           console.log("Login bilgileri güncellendi:", loginBilgileri);
+
+          // Save username and password in localStorage after a successful login
+          localStorage.setItem("username", formData.username);
+          localStorage.setItem("password", formData.password);
+
           navigate("/");
           notifySuccess();
         } else {
@@ -100,39 +121,66 @@ const LoginPage: React.FC = () => {
       });
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    handleLogin(formData.username, formData.password);
+  };
+
+  const handleLogout = () => {
+    // Remove username and password from localStorage on logout
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    // Perform any other logout operations you may have
+    // For example, resetting the loginBilgileri context state.
+  };
+
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+    <div id="Login-MainContainer">
+      <div id="Login-Container">
         <div>
-          <label>Username:</label>
-          <InputText
-            placeholder="Username"
-            className="w-full mb-3"
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-          />
+          <h2 id="LoginYazisi">Login</h2>
         </div>
-        <div>
-          <label>Password:</label>
-          <InputText
-            placeholder="Password"
-            className="w-full mb-3"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
+        <div id="Login-Form">
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Username: Lociper1 veya kayıt olabilirsin</label>
+              <InputText
+                placeholder="Username"
+                className="w-full mb-3"
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label>Password: 123456</label>
+              <InputText
+                placeholder="Password"
+                className="w-full mb-3"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+            </div>
+            {hataliGiris ? (
+              <Message id="Message" severity="warn" text={hataliGiris} />
+            ) : null}
+            <div>
+              <Button
+                id="Login-Button"
+                icon="pi pi-user"
+                className="w-full"
+                type="submit"
+              >
+                Login
+              </Button>
+            </div>
+          </form>
         </div>
-        <p>{hataliGiris}</p>
-        <Button icon="pi pi-user" className="w-full" type="submit">
-          Login
-        </Button>
-      </form>
-      {formData.username && <p>Username: {formData.username}</p>}
-      {formData.password && <p>Password: {formData.password}</p>}
+      </div>
     </div>
   );
 };

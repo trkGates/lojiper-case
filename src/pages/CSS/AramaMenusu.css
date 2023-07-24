@@ -1,20 +1,31 @@
 #A-MainContainer {
-  padding-top: 30px;
-  width: 100%;
+  padding-top: 10px;
   background-color: #f1f1f1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 480px;
-    height: 360px;
+  height: 300px;
 }
 
 .A-container {
-  width: 90%;
-  margin-bottom: 15px;
+  width: 80%;
+ 
 }
 
-.A-container select input {
+.A-container-Alt {
+    padding-bottom: 10px;
+}
+.A-container-Alt input {
   width: 100%;
+}
+
+.A-container-Alt p {
+  padding-bottom: 5px;
+  font-size: 18px;
+}
+.A-Image {
+  width: 35px;
+  height: 35px;
 }

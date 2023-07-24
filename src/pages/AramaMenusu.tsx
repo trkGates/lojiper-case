@@ -73,34 +73,44 @@ const AramaMenusu: React.FC = () => {
       setSecilen({ ...secilen, yolculukTarihi: null });
     }
   };
+  useEffect(() => {
+    console.log("tarih", secilen.yolculukTarihi);
+  }, [tarih]);
   return (
     <div id="A-MainContainer">
       <div className="A-container">
-        <p>Kalkış Noktası</p>
-        <Select
-          options={turkishCities}
-          onChange={(e) => handleInputChange(e, "kalkisNoktasi")}
-          value={secilen.kalkisNoktasi}
-          placeholder="Gidiş Noktası"
-        />
+        <div className="A-container-Alt"></div>
+        <div className="A-container-Alt">
+          <p>Gidiş Noktası</p>
+          <Select
+            options={turkishCities}
+            onChange={(e) => handleInputChange(e, "kalkisNoktasi")}
+            value={secilen.kalkisNoktasi}
+            placeholder="Gidiş Noktası"
+          />
+        </div>
       </div>
       <div className="A-container">
-        <p>Varış Noktası</p>
-        <Select
-          placeholder="Varış Noktası"
-          options={turkishCities}
-          onChange={(e) => handleInputChange(e, "varisNoktasi")}
-          value={secilen.varisNoktasi}
-        />
+        <div className="A-container-Alt"></div>
+        <div className="A-container-Alt">
+          <p>Varış Noktası</p>
+          <Select
+            placeholder="Varış Noktası"
+            options={turkishCities}
+            onChange={(e) => handleInputChange(e, "varisNoktasi")}
+            value={secilen.varisNoktasi}
+          />
+        </div>
       </div>
       <div className="A-container">
+        Tarih 07/26/2023 seçiniz
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DatePicker"]}>
             <DatePicker
               label="Yolculuk Tarihi"
-              defaultValue={dayjs()}
+              defaultValue={dayjs("2023-07-26")}
               onChange={handleDateChange}
-              disablePast
+              // disablePast
             />
           </DemoContainer>
         </LocalizationProvider>
