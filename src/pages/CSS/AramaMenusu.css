@@ -11,11 +11,10 @@
 
 .A-container {
   width: 80%;
- 
 }
 
 .A-container-Alt {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 .A-container-Alt input {
   width: 100%;
@@ -28,4 +27,8 @@
 .A-Image {
   width: 35px;
   height: 35px;
+}
+
+.DatePicker {
+  z-index: 0;
 }

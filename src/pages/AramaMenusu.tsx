@@ -107,6 +107,7 @@ const AramaMenusu: React.FC = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DatePicker"]}>
             <DatePicker
+              className="DatePicker"
               label="Yolculuk Tarihi"
               defaultValue={dayjs("2023-07-26")}
               onChange={handleDateChange}
