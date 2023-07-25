@@ -16,8 +16,7 @@ import "primereact/resources/primereact.css"; // core css
 import "primeicons/primeicons.css";
 import { TutarProvider } from "./context/TutarContext";
 
-
-axios.defaults.baseURL = "https://lojiper-case.vercel.app";
+// axios.defaults.baseURL = "http://localhost:5000";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
