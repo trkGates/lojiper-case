@@ -16,7 +16,8 @@ import "primereact/resources/primereact.css"; // core css
 import "primeicons/primeicons.css";
 import { TutarProvider } from "./context/TutarContext";
 
-// axios.defaults.baseURL = "http://localhost:5000";
+
+axios.defaults.baseURL = "https://lojiper-case.vercel.app";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -24,19 +25,19 @@ const root = ReactDOM.createRoot(
 root.render(
   <PrimeReactProvider>
     <TutarProvider>
-    <SeferProvider>
-      <KoltukContextProvider>
-        <ArammaBilgiler>
-          <LoginBilgileriProvider>
-            <BrowserRouter>
-              <React.StrictMode>
-                <App />
-              </React.StrictMode>
-            </BrowserRouter>
-          </LoginBilgileriProvider>
-        </ArammaBilgiler>
-      </KoltukContextProvider>
-    </SeferProvider>
+      <SeferProvider>
+        <KoltukContextProvider>
+          <ArammaBilgiler>
+            <LoginBilgileriProvider>
+              <BrowserRouter>
+                <React.StrictMode>
+                  <App />
+                </React.StrictMode>
+              </BrowserRouter>
+            </LoginBilgileriProvider>
+          </ArammaBilgiler>
+        </KoltukContextProvider>
+      </SeferProvider>
     </TutarProvider>
   </PrimeReactProvider>
 );
