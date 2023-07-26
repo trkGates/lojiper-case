@@ -1,7 +1,8 @@
-Belli temel özelliklerin bulunduğu bir otobüs bilet satış uygulaması yaptım.
-          Projeyi çalıştırmak için 
-                · npm install
-                · npm start
+#Bilet Satış Sitesi Projesi
+##Belli temel özelliklerin bulunduğu bir otobüs bilet satış uygulaması yaptım.
+          **Projeyi çalıştırmak için 
+               *· npm install
+                *· npm start
 Login
    ·Kullanıcı adı ve şifre ile giriş yapılabilen sayfa
    ·Bilgiler doğru ise anasayfaya yönlendirme
