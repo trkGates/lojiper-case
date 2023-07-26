@@ -1,8 +1,7 @@
-![Screenshot_8](https://github.com/yusuf-colak/lojiper-case/assets/128047955/895b38f2-df9a-4a2e-96c7-dbd7a5d85e94)
-![Screenshot_7](https://github.com/yusuf-colak/lojiper-case/assets/128047955/95313430-bff4-4050-9410-0bc05ed6f327)
-![Screenshot_6](https://github.com/yusuf-colak/lojiper-case/assets/128047955/06cf114c-1826-432a-9c9a-6eb951c280cd)
 Belli temel özelliklerin bulunduğu bir otobüs bilet satış uygulaması yaptım.
-
+          Projeyi çalıştırmak için 
+                · npm install
+                · npm start
 Login
    ·Kullanıcı adı ve şifre ile giriş yapılabilen sayfa
    ·Bilgiler doğru ise anasayfaya yönlendirme
