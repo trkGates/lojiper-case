@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { LoginBilgileriContext } from "../context/LoginBilgileri";
 
 import "./CSS/Kullanici.css";
+import { useNavigate } from "react-router-dom";
+import LoginPage from "./LoginPage";
 
 interface Bilet {
   id: number;
@@ -18,14 +20,23 @@ interface SeferIdObject {
 }
 
 const KullaniciBiletleri = () => {
+  const navigate = useNavigate();
+
   const [biletlerim, setBiletlerim] = useState<Bilet[]>([]);
   const [seferIdList, setSeferIdList] = useState<SeferIdObject[]>([]);
   const [seferler, setSeferler] = useState<any[]>([]);
-
   const { loginBilgileri, setLoginBilgileri } = useContext(
     LoginBilgileriContext
   );
   const [loading, setLoading] = useState(true);
+  const [yukleniyor, setYukleniyor] = useState<boolean | any>(null);
+
+  if (!loading) {
+    setTimeout(() => {
+      setYukleniyor(true);
+      console.log("Yükleniyor:", yukleniyor);
+    }, 100);
+  }
 
   useEffect(() => {
     axios
@@ -43,6 +54,7 @@ const KullaniciBiletleri = () => {
             new Set(seferIds)
           ).map((seferId) => ({ seferId }));
           setSeferIdList(uniqueSeferIds);
+          setLoading(false);
         } else if (response.status === 401) {
           console.log("Başarısız:", response.data.message);
         }
@@ -69,15 +81,13 @@ const KullaniciBiletleri = () => {
         .then((response) => {
           if (response.status === 200) {
             console.log("Sefer var mı?", response.data);
-
-            // Update the seferler state by spreading the previous array and the new data array
             setSeferler((prevSeferler) => [...prevSeferler, ...response.data]);
           } else if (response.status === 401) {
             console.log("Başarısız:", response.data.message);
           }
         })
     );
-  }, [seferIdList]);
+  }, [yukleniyor]);
 
   useEffect(() => {
     console.log("seferler:", seferler);
@@ -92,52 +102,73 @@ const KullaniciBiletleri = () => {
   }, []);
 
   return (
-    <div id="Kullanici-MainContainer">
-      {loading ? (
-        <p>Loading...</p>
+    <>
+      {!loginBilgileri.id ? (
+        navigate("/login")
       ) : (
-        <>
-          {biletlerim.map((bilet) => (
-            <div id="Kullanici-Map" key={bilet.id}>
-              {seferler.map((sefer) => {
-                if (sefer.id == bilet.seferId) {
-                  return (
-                    <div key={bilet.id}>
-                      <div id="Kullanici-Resim">
-                        <img
-                          src={sefer.seferSirketResim}
-                          alt="Şirket Resmi"
-                        ></img>
-                        <p>Sefer Şirketi: {sefer.seferSirketi}</p>
-                      </div>
-
-                      <div className="Kullanici-Bilgiler">
-                        <p>Sefer Tarihi: {sefer.seferTarihi}</p>
-                        <p>Sefer Kalkış Yeri: {sefer.seferKalkisYeri}</p>
-                        <p>Sefer Varış Yeri: {sefer.seferVarisYeri}</p>
-                        <p>Sefer Kalkış Saati: {sefer.seferSuresi}</p>
-                        <p>Sefer Koltuk Düzeni: {sefer.seferKoltukDüzeni}</p>
-                        <p>Sefer Ücreti: {sefer.seferUcreti} TL</p>
-                      </div>
-                    </div>
-                  );
-                }
-              })}
-              <div>
-                <div className="Kullanici-Bilgiler">
-                  <p>Bilet Numarası: {bilet.id}</p>
-                  <p>Adı: {loginBilgileri.firstName}</p>
-                  <p>Soyadı: {loginBilgileri.lastName}</p>
-                  <p>Koltuk Numarası: {bilet.koltukNo}</p>
-                  <p>Email: {loginBilgileri.email}</p>
-                  <p>Cinsiyet: {bilet.cinsiyet}</p>
-                </div>
-              </div>
+        <div id="Kullanici-MainContainer">
+          {!yukleniyor ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "70vh",
+                width: "100%",
+              }}
+            >
+              <i
+                className="pi pi-spin pi-spinner"
+                style={{ fontSize: "5rem" }}
+              ></i>
             </div>
-          ))}
-        </>
+          ) : (
+            <>
+              {biletlerim.map((bilet) => (
+                <div id="Kullanici-Map" key={bilet.id}>
+                  {seferler.map((sefer) => {
+                    if (sefer.id == bilet.seferId) {
+                      return (
+                        <div key={bilet.id}>
+                          <div id="Kullanici-Resim">
+                            <img
+                              src={sefer.seferSirketResim}
+                              alt="Şirket Resmi"
+                            ></img>
+                            <p>Sefer Şirketi: {sefer.seferSirketi}</p>
+                          </div>
+
+                          <div className="Kullanici-Bilgiler">
+                            <p>Sefer Tarihi: {sefer.seferTarihi}</p>
+                            <p>Sefer Kalkış Yeri: {sefer.seferKalkisYeri}</p>
+                            <p>Sefer Varış Yeri: {sefer.seferVarisYeri}</p>
+                            <p>Sefer Kalkış Saati: {sefer.seferSuresi}</p>
+                            <p>
+                              Sefer Koltuk Düzeni: {sefer.seferKoltukDüzeni}
+                            </p>
+                            <p>Sefer Ücreti: {sefer.seferUcreti} TL</p>
+                          </div>
+                        </div>
+                      );
+                    }
+                  })}
+                  <div>
+                    <div className="Kullanici-Bilgiler">
+                      <p>Bilet Numarası: {bilet.id}</p>
+                      <p>Adı: {loginBilgileri.firstName}</p>
+                      <p>Soyadı: {loginBilgileri.lastName}</p>
+                      <p>Koltuk Numarası: {bilet.koltukNo}</p>
+                      <p>Email: {loginBilgileri.email}</p>
+                      <p>Cinsiyet: {bilet.cinsiyet}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -12,7 +12,7 @@ const NavBar = () => {
 
   useEffect(() => {
     if (loginBilgileri.username !== "") {
-      setYazi("Merhaba " + loginBilgileri.username);
+      setYazi("Merhaba " + loginBilgileri.firstName + " " + loginBilgileri.lastName);
     }
   }, [loginBilgileri]);
 

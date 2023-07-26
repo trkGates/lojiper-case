@@ -9,6 +9,8 @@ import { useTutarContext } from "../context/TutarContext";
 import "./CSS/koltukSec.css";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { LoginBilgileriContext } from "../context/LoginBilgileri";
+import { Link } from "react-router-dom";
 
 type secilenCinsiyet = "Erkek" | "Kadın";
 
@@ -32,9 +34,11 @@ const KoltukSec: React.FC<KoltukSecProps> = ({ sefer }) => {
   const [satılmısKoltuklar, setSatılmısKoltuklar] = useState<Satilmislar[]>([]);
   const { seferBilgileri, setSeferBilgileri } = useSeferContext();
   // const [tutar, setTutar] = useState<number>(0);
-
+  const { loginBilgileri, setLoginBilgileri } = useContext(
+    LoginBilgileriContext
+  );
   const { tutar, setTutar } = useTutarContext();
-
+  const [loginStatus, setLoginStatus] = useState<boolean>(false);
   const {
     id,
     seferSirketResim,
@@ -49,6 +53,9 @@ const KoltukSec: React.FC<KoltukSecProps> = ({ sefer }) => {
     seferAciklama,
     seferKoltukDüzeni,
   } = sefer;
+  useEffect(() => {
+    setLoginStatus(false);
+  }, []);
 
   // Satılmış olan koltukların verisini çekiyoruz
   useEffect(() => {
@@ -57,8 +64,10 @@ const KoltukSec: React.FC<KoltukSecProps> = ({ sefer }) => {
         const response = await axios.post("/koltuk/koltukBul", { seferId: id });
         const veriler = response.data;
         setSatılmısKoltuklar(veriler);
+        setTimeout(() => {
+          setLoginStatus(true);
+        }, 500);
       } catch (error) {
-        // Hata durumunda yapılacak işlemler
         console.error("Bir hata oluştu:", error);
       }
     };
@@ -207,80 +216,107 @@ const KoltukSec: React.FC<KoltukSecProps> = ({ sefer }) => {
   };
 
   return (
-    <div id="K-MainContainer">
-      <div id="K-Container1">
-        <div id="K-Container1_1">
-          <img
-            id="fotoDireksiyon"
-            src="https://svgsilh.com/svg/150137.svg"
-            alt="onTaraf"
-          />
+    <>
+      {!loginBilgileri.username ? (
+        <div id="login-register">
+          <p>Lütfen</p>
+          <li className="ButunlarNav">
+            <Link to="/login">Giriş Yapın</Link>
+          </li>
+          <p>veya</p>
+          <li className="ButunlarNav">
+            <Link to="/register">Kayıt Olun</Link>
+          </li>
         </div>
-        <div>
-          <div id="K-Container1_2">{koltuklarRendered}</div>
-          <div id="secilenCinsiyet-modal-main">
-            {showsecilenCinsiyetModal && (
-              <div className="secilenCinsiyet-modal">
-                <button
-                  id="btn1"
-                  onClick={() => handlesecilenCinsiyetSelect("Erkek")}
-                >
-                  Erkek
-                </button>
-                <button
-                  id="btn2"
-                  onClick={() => handlesecilenCinsiyetSelect("Kadın")}
-                >
-                  Kadın
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-      <div id="K-Container2">
-        {secilenler.length > 0 ? (
-          <div id="K-Container2_1">
-            <div>
-              <p>Seçilen Koltuklar</p>
-              <div id="K-secilenler">
-                {secilenler.map((seatData) => (
-                  <div
-                    id="K-secilenler-ic"
-                    key={seatData.secilenKoltukNumarasi}
-                  >
-                    <div
-                      className="K-MAP"
-                      style={{
-                        backgroundColor: getSeatBgColor(
-                          seatData.secilenKoltukNumarasi
-                        ),
-                      }}
-                    >
-                      {seatData.secilenKoltukNumarasi}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <p>Toplam Tutar</p>
-              <div id="K-tutar">{tutar} TL</div>
-            </div>
-          </div>
-        ) : (
-          <p>Lütfen soldan koltuk seçin.</p>
-        )}
-        <button
-          onClick={handleClick}
-          disabled={secilenler.length < 1}
-          id="K-Button"
+      ) : !loginStatus ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          {" "}
-          Ödeme Yap{" "}
-        </button>
-      </div>
-    </div>
+          <i className="pi pi-spin pi-spinner" style={{ fontSize: "5rem" }}></i>
+        </div>
+      ) : (
+        <div id="K-MainContainer">
+          <div id="K-Container1">
+            <div id="K-Container1_1">
+              <img
+                id="fotoDireksiyon"
+                src="https://svgsilh.com/svg/150137.svg"
+                alt="onTaraf"
+              />
+            </div>
+
+            <div>
+              <div id="K-Container1_2">{koltuklarRendered}</div>
+              <div id="secilenCinsiyet-modal-main">
+                {showsecilenCinsiyetModal && (
+                  <div className="secilenCinsiyet-modal">
+                    <button
+                      id="btn1"
+                      onClick={() => handlesecilenCinsiyetSelect("Erkek")}
+                    >
+                      Erkek
+                    </button>
+                    <button
+                      id="btn2"
+                      onClick={() => handlesecilenCinsiyetSelect("Kadın")}
+                    >
+                      Kadın
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div id="K-Container2">
+            {secilenler.length > 0 ? (
+              <div id="K-Container2_1">
+                <div>
+                  <p>Seçilen Koltuklar</p>
+                  <div id="K-secilenler">
+                    {secilenler.map((seatData) => (
+                      <div
+                        id="K-secilenler-ic"
+                        key={seatData.secilenKoltukNumarasi}
+                      >
+                        <div
+                          className="K-MAP"
+                          style={{
+                            backgroundColor: getSeatBgColor(
+                              seatData.secilenKoltukNumarasi
+                            ),
+                          }}
+                        >
+                          {seatData.secilenKoltukNumarasi}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p>Toplam Tutar</p>
+                  <div id="K-tutar">{tutar} TL</div>
+                </div>
+              </div>
+            ) : (
+              <p>Lütfen soldan koltuk seçin.</p>
+            )}
+            <button
+              onClick={handleClick}
+              disabled={secilenler.length < 1}
+              id="K-Button"
+            >
+              {" "}
+              Ödeme Yap{" "}
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

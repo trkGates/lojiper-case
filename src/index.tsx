@@ -17,8 +17,7 @@ import "primereact/resources/primereact.css"; // core css
 import "primeicons/primeicons.css";
 import { TutarProvider } from "./context/TutarContext";
 
-axios.defaults.baseURL = process.env.REACT_APP_LINK || "http://localhost:5000";
-console.log("REACT_APP_LINK = ",process.env.REACT_APP_LINK);
+axios.defaults.baseURL = "http://localhost:5000";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

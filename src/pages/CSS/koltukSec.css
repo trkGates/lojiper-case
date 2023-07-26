@@ -97,7 +97,6 @@
   text-transform: uppercase;
   cursor: pointer;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-
 }
 
 #btn2 {
@@ -112,13 +111,13 @@
   text-transform: uppercase;
   cursor: pointer;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-
 }
-#btn2:hover,#btn1:hover {
+#btn2:hover,
+#btn1:hover {
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.911);
 }
 
-.secilenCinsiyet-modal{
+.secilenCinsiyet-modal {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -133,4 +132,19 @@
   left: 0px;
   z-index: 1000;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+#login-register {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(0, 0, 0, 0.322);
+  border-radius: 10px; 
+  background-color: #ac8383ad;
+
+  
+}
+#login-register li ,#login-register p{
+  margin: 10px;
 }

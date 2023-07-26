@@ -55,83 +55,89 @@ const BiletAl: React.FC = () => {
   };
 
   return (
-    <div id="B-MainContainer">
-      <div id="B-Container_1">
-        <div id="B-Div_1">
-          <img src={seferBilgileri.seferSirketResim} alt="" />
-          <h2>{seferBilgileri.seferSirketi}</h2>
-        </div>
-        <div id="B-Div_2">
-          <div className="B-Div_2_1">
-            <div className="B-Div_2_2">
-              <h2>Kalkış</h2>
-              <p>{seferBilgileri.seferKalkisYeri}</p>
+    <>
+      {!loginBilgileri.id ? (
+        navigate("/")
+      ) : (
+        <div id="B-MainContainer">
+          <div id="B-Container_1">
+            <div id="B-Div_1">
+              <img src={seferBilgileri.seferSirketResim} alt="" />
+              <h2>{seferBilgileri.seferSirketi}</h2>
             </div>
-            <div className="B-Div_2_2">
-              <h2> Varış</h2>
-              <p>{seferBilgileri.seferVarisYeri}</p>
+            <div id="B-Div_2">
+              <div className="B-Div_2_1">
+                <div className="B-Div_2_2">
+                  <h2>Kalkış</h2>
+                  <p>{seferBilgileri.seferKalkisYeri}</p>
+                </div>
+                <div className="B-Div_2_2">
+                  <h2> Varış</h2>
+                  <p>{seferBilgileri.seferVarisYeri}</p>
+                </div>
+              </div>
+              <div className="B-Div_2_1">
+                <div className="B-Div_2_2">
+                  <h2>Hareket Zamanı</h2>
+                  <p>{seferBilgileri.seferSaati}</p>
+                  <p>{seferBilgileri.seferTarihi}</p>
+                </div>
+                <div className="B-Div_2_2">
+                  <h2>Koltuk</h2>
+                  <p id="B-koltuklar">
+                    {secilenKoltuklar.map((koltuk) => {
+                      return koltuk.secilenKoltukNumarasi + ".Numara  ";
+                    })}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="B-Div_2_1">
-            <div className="B-Div_2_2">
-              <h2>Hareket Zamanı</h2>
-              <p>{seferBilgileri.seferSaati}</p>
-              <p>{seferBilgileri.seferTarihi}</p>
-            </div>
-            <div className="B-Div_2_2">
-              <h2>Koltuk</h2>
-              <p id="B-koltuklar">
-                {secilenKoltuklar.map((koltuk) => {
-                  return koltuk.secilenKoltukNumarasi + ".Numara  ";
-                })}
-              </p>
-            </div>
+          <div id="B-Container_2">
+            <p className="B-Yocu ">
+              <p>Yolcu Bilgiler</p>
+            </p>
+            <p className="B-Yocu">
+              <p>Adı:</p>
+              <p>{loginBilgileri.firstName}</p>
+            </p>
+            <p className="B-Yocu">
+              <p>Soyadı:</p>
+              <p>{loginBilgileri.lastName}</p>
+            </p>
+            <p className="B-Yocu">
+              <p>Email:</p>
+              <p>{loginBilgileri.email}</p>
+            </p>
           </div>
-        </div>
-      </div>
-      <div id="B-Container_2">
-        <p className="B-Yocu ">
-          <p>Yolcu Bilgiler</p>
-        </p>
-        <p className="B-Yocu">
-          <p>Adı:</p>
-          <p>{loginBilgileri.firstName}</p>
-        </p>
-        <p className="B-Yocu">
-          <p>Soyadı:</p>
-          <p>{loginBilgileri.lastName}</p>
-        </p>
-        <p className="B-Yocu">
-          <p>Email:</p>
-          <p>{loginBilgileri.email}</p>
-        </p>
-      </div>
 
-      <div id="B-Container_3">
-        <div className="B-Container_3_1">
-          <p>Ödeme Bilgileri</p>
-        </div>
-        <div className="B-Container_3_1">
-          <p>Kart Numarası</p>
-          <input type="text" placeholder="···· ···· ···· ···· " />
-        </div>
-        <div id="B-ccv-aa">
-          <div className="B-Container_3_1">
-            <p>Son Kullanma Tarihi</p>
-            <input id="B-SKT" type="text" placeholder="AA / YY" />
+          <div id="B-Container_3">
+            <div className="B-Container_3_1">
+              <p>Ödeme Bilgileri</p>
+            </div>
+            <div className="B-Container_3_1">
+              <p>Kart Numarası</p>
+              <input type="text" placeholder="···· ···· ···· ···· " />
+            </div>
+            <div id="B-ccv-aa">
+              <div className="B-Container_3_1">
+                <p>Son Kullanma Tarihi</p>
+                <input id="B-SKT" type="text" placeholder="AA / YY" />
+              </div>
+              <div className="B-Container_3_1">
+                <p>CVV</p>
+                <input type="text" placeholder="··· " />
+              </div>
+            </div>
+            <div className="B-Container_3_1">
+              <button onClick={handleTiklandi} id="OdemeButton">
+                {tutar}TL Ödeme Yap
+              </button>
+            </div>
           </div>
-          <div className="B-Container_3_1">
-            <p>CVV</p>
-            <input type="text" placeholder="··· " />
-          </div>
         </div>
-        <div className="B-Container_3_1">
-          <button onClick={handleTiklandi} id="OdemeButton">
-            {tutar}TL Ödeme Yap
-          </button>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

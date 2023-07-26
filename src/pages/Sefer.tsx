@@ -10,6 +10,7 @@ import { Button } from "primereact/button";
 import KoltukSec from "./KoltukSec";
 import { ButtonBase } from "@mui/material";
 import { toast } from "react-toastify";
+import { LoginBilgileriContext } from "../context/LoginBilgileri";
 export interface SeferData {
   id: number;
   seferSirketResim: string;
@@ -33,6 +34,9 @@ const Sefer: React.FC = () => {
   const [koltukSecVisibleMap, setKoltukSecVisibleMap] = useState<{
     [id: number]: boolean;
   }>({});
+  const { loginBilgileri, setLoginBilgileri } = useContext(
+    LoginBilgileriContext
+  );
 
   // Function to toggle the visibility of KoltukSec for a specific id
   const toggleKoltukSecVisible = (id: number) => {
@@ -63,53 +67,54 @@ const Sefer: React.FC = () => {
 
   return (
     <div>
-      <Button id="S-Button" onClick={seferBul}>Seferi Bul</Button>
+      <Button id="S-Button" onClick={seferBul}>
+        Seferi Bul
+      </Button>
       <div>
-        {
-          seferData.map((sefer) => (
-            <div id="sefer" key={sefer.id}>
-              <div id="sefer-container">
-                <div className="sefer-ortak" id="seferResim">
-                  <img
-                    id="resimBoyut"
-                    src={sefer.seferSirketResim}
-                    alt="Pamukkale"
-                  />
-                </div>
-
-                <div className="sefer-ortak" id="seferSaati">
-                  <p>
-                    <i className="pi pi-clock"></i> {sefer.seferSaati}
-                  </p>
-                  <p className="detay">{sefer.seferSuresi}</p>
-                </div>
-
-                <div className="sefer-ortak" id="seferDuzeni">
-                  <p id="koltuk-duzeni"> {sefer.seferKoltukDüzeni}</p>
-                  <p className="detay">
-                    {" "}
-                    {sefer.seferKalkisYeri}{" "}
-                    <i className="pi pi-angle-double-right"></i>
-                    {sefer.seferVarisYeri}
-                  </p>
-                </div>
-
-                <div className="sefer-ortak" id="seferUcreti">
-                  <p className="detay">{sefer.seferUcreti} ₺</p>
-                </div>
-                <div>
-                  <Button onClick={() => toggleKoltukSecVisible(sefer.id)}>
-                    KOLTUK SEÇ
-                  </Button>
-                </div>
+        {seferData.map((sefer) => (
+          <div id="sefer" key={sefer.id}>
+            <div id="sefer-container">
+              <div className="sefer-ortak" id="seferResim">
+                <img
+                  id="resimBoyut"
+                  src={sefer.seferSirketResim}
+                  alt="Pamukkale"
+                />
               </div>
 
-              <div id="">
-                {koltukSecVisibleMap[sefer.id] && <KoltukSec sefer={sefer} />}
+              <div className="sefer-ortak" id="seferSaati">
+                <p>
+                  <i className="pi pi-clock"></i> {sefer.seferSaati}
+                </p>
+                <p className="detay">{sefer.seferSuresi}</p>
+              </div>
+
+              <div className="sefer-ortak" id="seferDuzeni">
+                <p id="koltuk-duzeni"> {sefer.seferKoltukDüzeni}</p>
+                <p className="detay">
+                  {" "}
+                  {sefer.seferKalkisYeri}{" "}
+                  <i className="pi pi-angle-double-right"></i>
+                  {sefer.seferVarisYeri}
+                </p>
+              </div>
+
+              <div className="sefer-ortak" id="seferUcreti">
+                <p className="detay">{sefer.seferUcreti} ₺</p>
+              </div>
+              <div>
+                <Button onClick={() => toggleKoltukSecVisible(sefer.id)}>
+                  KOLTUK SEÇ
+                </Button>
               </div>
             </div>
-          ))
-          }
+
+            <div id="">
+
+              {koltukSecVisibleMap[sefer.id] && <KoltukSec sefer={sefer} />}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

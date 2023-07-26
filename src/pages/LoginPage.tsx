@@ -24,9 +24,22 @@ const LoginPage: React.FC = () => {
   const { loginBilgileri, setLoginBilgileri } = useContext(
     LoginBilgileriContext
   );
+  const [loginStatus, setLoginStatus] = useState<
+    "none" | "loading" | "success" | "failure"
+  >("none");
+
   const [hataliGiris, setHataliGiris] = useState("");
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (loginStatus === "loading") {
+      // İsterseniz yükleme durumunu gösteren bir tost mesajı ekleyebilirsiniz
+    } else if (loginStatus === "success") {
+      notifySuccess();
+      navigate("/");
+    } else if (loginStatus === "failure") {
+      notifyFail();
+    }
+  }, [loginStatus]);
   const notifyFail = () =>
     toast.warn("Kullanıcı adı veya şifre hatalı!", {
       position: "top-right",
@@ -83,13 +96,15 @@ const LoginPage: React.FC = () => {
   };
 
   const handleLogin = (username: string, password: string) => {
+    // API çağrısı yapmadan önce login durumunu "loading" olarak ayarlayın
+    setLoginStatus("loading");
+
     axios
       .post("login/user", { username, password })
       .then((response) => {
         if (response.status === 200) {
-          console.log("Login success:", response.data.firstName);
+          console.log("Giriş başarılı:", response.data.firstName);
 
-          // Güncelleme işlemini burada yapıyoruz.
           setLoginBilgileri({
             username: response.data.username,
             firstName: response.data.firstName,
@@ -98,25 +113,20 @@ const LoginPage: React.FC = () => {
             password: response.data.password,
             id: response.data.id,
           });
-          console.log("Login bilgileri güncellendi:", loginBilgileri);
-
-          // Save username and password in localStorage after a successful login
-          localStorage.setItem("username", formData.username);
-          localStorage.setItem("password", formData.password);
-
-          navigate("/");
-          notifySuccess();
+          setLoginStatus("success");
         } else {
-          console.log("Login failed!");
+          console.log("Giriş başarısız!");
+          setLoginStatus("failure");
         }
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
           console.log("Kullanıcı adı veya şifre hatalı!");
           setHataliGiris("Kullanıcı adı veya şifre hatalı!");
-          notifyFail();
+          // Giriş durumunu "failure" olarak güncelleyin
+          setLoginStatus("failure");
         } else {
-          console.error("Error:", error.message);
+          console.error("Hata:", error.message);
         }
       });
   };
@@ -144,7 +154,7 @@ const LoginPage: React.FC = () => {
         <div id="Login-Form">
           <form onSubmit={handleSubmit}>
             <div>
-              <label>Username: Lociper1 veya kayıt olabilirsin</label>
+              <label>Username: Deneme1 veya kayıt olabilirsin</label>
               <InputText
                 placeholder="Username"
                 className="w-full mb-3"

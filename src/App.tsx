@@ -14,11 +14,11 @@ const App: React.FC = () => {
       <div id="MainContainer">
         <div id="Container1">
           <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/SatinAlma" element={<SatinAlma />} />-
+            <Route path="/*" element={<Home />}></Route>
+            <Route path="/satinAlma" element={<SatinAlma />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/biletlerim" element={<Biletlerim/> } />
+            <Route path="/biletlerim" element={<Biletlerim />} />
           </Routes>
           <ToastContainer />
         </div>
