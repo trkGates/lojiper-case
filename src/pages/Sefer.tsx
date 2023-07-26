@@ -44,7 +44,7 @@ const Sefer: React.FC = () => {
 
   const seferBul = () => {
     axios
-      .post<SeferData[]>("http://localhost:5000/sefer/seferBul", {
+      .post<SeferData[]>("/sefer/seferBul", {
         seferKalkisYeri: secilen.kalkisNoktasi?.label,
         seferVarisYeri: secilen.varisNoktasi?.label,
         seferTarihi: secilen.yolculukTarihi,

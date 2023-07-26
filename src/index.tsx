@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
+
 import LoginBilgileriProvider from "./context/LoginBilgileri";
 import ArammaBilgiler from "./context/AramaBilgileri";
 import { PrimeReactProvider } from "primereact/api";
@@ -16,8 +17,8 @@ import "primereact/resources/primereact.css"; // core css
 import "primeicons/primeicons.css";
 import { TutarProvider } from "./context/TutarContext";
 
-// axios.defaults.baseURL = "http://localhost:5000";
-
+axios.defaults.baseURL = process.env.REACT_APP_LINK || "http://localhost:5000";
+console.log("REACT_APP_LINK = ",process.env.REACT_APP_LINK);
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

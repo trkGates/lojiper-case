@@ -54,10 +54,7 @@ const KoltukSec: React.FC<KoltukSecProps> = ({ sefer }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(
-          "http://localhost:5000/koltuk/koltukBul",
-          { seferId: id }
-        );
+        const response = await axios.post("/koltuk/koltukBul", { seferId: id });
         const veriler = response.data;
         setSatılmısKoltuklar(veriler);
       } catch (error) {
@@ -220,20 +217,26 @@ const KoltukSec: React.FC<KoltukSecProps> = ({ sefer }) => {
           />
         </div>
         <div>
-        <div id="K-Container1_2">{koltuklarRendered}</div>
-        <div id="secilenCinsiyet-modal-main">
-          {showsecilenCinsiyetModal && (
-            <div className="secilenCinsiyet-modal">
-              <button id="btn1" onClick={() => handlesecilenCinsiyetSelect("Erkek")}>
-                Erkek
-              </button>
-              <button id="btn2" onClick={() => handlesecilenCinsiyetSelect("Kadın")}>
-                Kadın
-              </button>
-            </div>
-          )}
+          <div id="K-Container1_2">{koltuklarRendered}</div>
+          <div id="secilenCinsiyet-modal-main">
+            {showsecilenCinsiyetModal && (
+              <div className="secilenCinsiyet-modal">
+                <button
+                  id="btn1"
+                  onClick={() => handlesecilenCinsiyetSelect("Erkek")}
+                >
+                  Erkek
+                </button>
+                <button
+                  id="btn2"
+                  onClick={() => handlesecilenCinsiyetSelect("Kadın")}
+                >
+                  Kadın
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
       </div>
       <div id="K-Container2">
         {secilenler.length > 0 ? (
